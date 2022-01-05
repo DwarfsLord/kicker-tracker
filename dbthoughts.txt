@@ -1,0 +1,33 @@
+Players:
+    Name
+    ID
+    ELO_single =            750
+    (confidence_single) =   -5 {float}
+    ELO_double =            750
+    (confidence_double) =   -5 {float}
+
+Game:
+    ID
+    Time
+//    GameType \in            {single, double}
+    Winner_ID
+    Winner_old_ELO
+    Winner2_ID =            NULL
+    Winner2_old_ELO =       NULL
+    Loser_ID
+    Loser_old_ELO
+    Loser2_ID =             NULL
+    Loser2_old_ELO =        NULL
+    (confidences?)
+
+
+Algorythm:
+    min-confident, max-difference = 50 ELO
+        confidence:
+            1) confidence = (con_a+con_b))
+            2) confidence = sqrt((con_a^2+con_b^2)/2)
+            3) confidence = ((sqrt(con_a)+sqrt(con_b))/2)^2
+    provisional Ranking:
+        <=> if confidence < 0
+        the player gets 50 "free" points
+        confidence += 1

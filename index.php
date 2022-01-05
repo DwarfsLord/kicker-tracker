@@ -2,12 +2,12 @@
 
 require 'include.php';
 
-$konst_A = 91;
-$konst_K = 67/2; //changed from /1 on the 15th at 00:00
+$konst_A = 43;
+$konst_K = 50;
 
 if (isset($_GET['name'])) {
     $statement = $pdo->prepare("INSERT INTO `player` (`player_id`, `name`, `rating`) VALUES (NULL, :new_name, '1000')");
-    if($statement->execute([':new_name' => $_GET['name']])){
+    if ($statement->execute([':new_name' => $_GET['name']])) {
         $player_added = true;
     }
 }
@@ -63,10 +63,10 @@ $players = $statement->fetchAll();
         history.replaceState(stateObj, "reset_GET", "index.php");
 
         <?php
-            if(isset($player_added)){
+            if (isset($player_added)) {
                 echo "alert('Player added!');";
             }
-            if(isset($game_added)){
+            if (isset($game_added)) {
                 echo "alert('Game added!');";
             }
         ?>
@@ -76,21 +76,19 @@ $players = $statement->fetchAll();
     <div id='root'>
         <div class='box header'>
             <div class='title'>
-                Kicker Elo<?php /*isset($win_percent)?print(" $win_percent"):print("");*/ ?>
+                Kicker Elo
             </div>
-            <div class='config' style='flex-direction: column;'>
-                Fall season has ended!<br>
-                Final Scores:
-            </div>
-
-            <!-- <div class='config'>
-                <div class='new_game'>
-                    <a href='game.php'>Enter game</a>
-                </div>
-                <div class='new_player'>
-                    <a href='player.php'>Add player</a>
-                </div>
-            </div>
+            <div class='new_player'>
+                        <a href='player.php'>Add player</a>
+                    </div>
+                <div class='config'>
+                    <div class='new_game single'>
+                        <a href='game.php'>Enter 1v1</a>
+                    </div>
+                    <div class='new_game double'>
+                        <a href='game.php'>Enter 2v2</a>
+                    </div>
+                </div><!-- 
             <div class='config' style='flex-direction: column;'>
                 <p id='countdown'>Season ends soon!</p>
                 <script>
@@ -123,7 +121,7 @@ $players = $statement->fetchAll();
         </div>
         <?php
         $i = 1;
-        foreach($players as $player){
+        foreach ($players as $player) {
             echo("
             <div class='box player'>
                 <div id='rank'>$i</div>

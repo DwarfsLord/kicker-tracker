@@ -33,6 +33,14 @@ a{
     flex-wrap: wrap;
 }
 
+.single{
+    background-color: #aaffa3;
+}
+
+.double{
+    background-color: #aca3ff;
+}
+
 .player_hist{
     flex-basis: 100%;
 }
@@ -47,7 +55,7 @@ a{
 }
 
 .header{
-    height: 100px;
+    height: 130px;
     flex-direction: column;
 }
 
@@ -65,12 +73,18 @@ a{
 
 
 .new_game{
-    align-self: flex-start;
-    white-space: nowrap;
+    /* align-self: flex-start; */
+    /* white-space: nowrap; */
+    border-radius: 9px;
+    padding: 5px;
+    /* margin: 10px; */
+    /* border: 10px; */
 }
 
 .new_player{
-    align-self: flex-end;
+    /* align-self: flex-end; */
+    font-size: 25;
+
 }
 
 .add_game{
@@ -144,6 +158,11 @@ input.submit{
 #rating {
     text-align: right;
     align-self: center;
+
+/*     Construction tape border
+    border-top: solid 5px;
+    border-bottom: solid 5px;
+    border-image: repeating-linear-gradient(83deg, yellow, yellow 5px, black 5px, black 10px) 20; */
 }
 
 p#countdown{
