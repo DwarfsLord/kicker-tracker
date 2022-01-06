@@ -4,7 +4,7 @@
 class Player{
     public $player_id;
     public $name;
-    public $rating;
+    public $rating1;
 }
 // require 'identity.php';
 // $pdo = new PDO("mysql:host=$MYSQL_SERVER;dbname=$MYSQL_DB_NAME", $MYSQL_USER, $MYSQL_PASSWORD);

@@ -6,45 +6,45 @@ $konst_A = 43;
 $konst_K = 50;
 
 if (isset($_GET['name'])) {
-    $statement = $pdo->prepare("INSERT INTO `player` (`player_id`, `name`, `rating`) VALUES (NULL, :new_name, '1000')");
+    $statement = $pdo->prepare("INSERT INTO `player` (`player_id`, `name`, `rating1`) VALUES (NULL, :new_name, '1000')");
     if ($statement->execute([':new_name' => $_GET['name']])) {
         $player_added = true;
     }
 }
 
 if (isset($_GET['winner']) && isset($_GET['loser'])) {
-    $statement = $pdo->prepare("SELECT *  FROM `player` WHERE `name` LIKE :winner ORDER BY `rating` DESC");
+    $statement = $pdo->prepare("SELECT *  FROM `player` WHERE `name` LIKE :winner ORDER BY `rating1` DESC");
     $statement->execute([':winner' => $_GET['winner']]);
     $winner = $statement->fetchObject('Player');
 
-    $statement = $pdo->prepare("SELECT *  FROM `player` WHERE `name` LIKE :loser ORDER BY `rating` DESC");
+    $statement = $pdo->prepare("SELECT *  FROM `player` WHERE `name` LIKE :loser ORDER BY `rating1` DESC");
     $statement->execute([':loser' => $_GET['loser']]);
     $loser = $statement->fetchObject('Player');
 
     if ($winner != null && $loser != null) {
-        if ($winner->rating > $loser->rating) {
-            $win_percent = 1-(1/(exp(abs($winner->rating-$loser->rating)/$konst_A)+1));
+        if ($winner->rating1 > $loser->rating1) {
+            $win_percent = 1-(1/(exp(abs($winner->rating1-$loser->rating1)/$konst_A)+1));
         } else {
-            $win_percent = (1/(exp(abs($winner->rating-$loser->rating)/$konst_A)+1));
+            $win_percent = (1/(exp(abs($winner->rating1-$loser->rating1)/$konst_A)+1));
         }
 
-        $winner_new_rating = $winner->rating + ceil($konst_K * (1-$win_percent));
-        $loser_new_rating = $loser->rating - ceil($konst_K * (1-$win_percent));
+        $winner_new_rating = $winner->rating1 + ceil($konst_K * (1-$win_percent));
+        $loser_new_rating = $loser->rating1 - ceil($konst_K * (1-$win_percent));
 
-        $statement = $pdo->prepare("UPDATE `player` SET `rating` = '$winner_new_rating' WHERE `player`.`player_id` = $winner->player_id");
+        $statement = $pdo->prepare("UPDATE `player` SET `rating1` = '$winner_new_rating' WHERE `player`.`player_id` = $winner->player_id");
         $statement->execute();
     
-        $statement = $pdo->prepare("UPDATE `player` SET `rating` = '$loser_new_rating' WHERE `player`.`player_id` = $loser->player_id");
+        $statement = $pdo->prepare("UPDATE `player` SET `rating1` = '$loser_new_rating' WHERE `player`.`player_id` = $loser->player_id");
         $statement->execute();
         
-        $statement = $pdo->prepare("INSERT INTO `game` (`game_id`, `winner_id`, `winner_old_elo`, `loser_id`, `loser_old_elo`) VALUES (NULL, '$winner->player_id', '$winner->rating', '$loser->player_id', '$loser->rating')");
+        $statement = $pdo->prepare("INSERT INTO `game` (`game_id`, `winner_id`, `winner_old_elo`, `loser_id`, `loser_old_elo`) VALUES (NULL, '$winner->player_id', '$winner->rating1', '$loser->player_id', '$loser->rating1')");
         $statement->execute();
 
         $game_added = true;
     }
 }
 
-$statement = $pdo->query('SELECT * FROM `player` ORDER BY `player`.`rating` DeSC');
+$statement = $pdo->query('SELECT * FROM `player` ORDER BY `player`.`rating1` DeSC');
 $statement->setFetchMode(PDO::FETCH_CLASS, 'Player');
 $players = $statement->fetchAll();
 
@@ -126,7 +126,7 @@ $players = $statement->fetchAll();
             <div class='box player'>
                 <div id='rank'>$i</div>
                 <div id='name'>$player->name</div>
-                <div id='rating'>$player->rating</div>
+                <div id='rating'>$player->rating1</div>
                 <a href='history.php?player_id=$player->player_id' class='player_hist'><span class='link-spanner'></span></a>
             </div>");
             $i++;
