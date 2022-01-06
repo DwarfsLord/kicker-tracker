@@ -74,6 +74,8 @@ $matchups = [];
 $advantages = [];
 $game_count = [];
 
+$scoring = [];
+
 foreach ($players as $player) {
     $statement = $pdo->query("SELECT (CAST(`winner_old_elo` AS SIGNED)- CAST(`loser_old_elo` AS SIGNED)), `game_id`, `winner_id` FROM `game` WHERE `winner_id` = $player->player_id OR `loser_id` = $player->player_id;");
     $games = $statement->fetchAll(PDO::FETCH_NUM);
@@ -91,6 +93,8 @@ foreach ($players as $player) {
     $advantages[$player->player_id] = count($games)==0?0:$advantage_average/count($games);
 
     $game_count[$player->player_id] = count($games);
+
+    $scoring[$player->player_id] = $player->rating+30*count($games);
 }
 //var_dump($matchups);
 echo "<h1>The Optimist:</h1>";
@@ -153,6 +157,14 @@ foreach ($most_games as $most_game) {
     unset($game_count[$most_game]);
 }
 
+echo "<h1>The Players:</h1>";//----------------------------------------------------------------------
+for ($k=0; $k < 20; $k++) { 
+    $most_scoring = array_keys($scoring, max($scoring));
+    foreach ($most_scoring as $most_game) {
+        echo get_player_by_id($most_game, $pdo)->name." scored " . max($scoring) . " points!<br>";
+        unset($scoring[$most_game]);
+    }
+}
 
 
 
