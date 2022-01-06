@@ -1,0 +1,4 @@
+join(a,b) = min(
+    min(a,b) + abs(a-b)*0.5 + (0.03*abs(a-b))^2,
+    max(a,b)
+)
