@@ -44,7 +44,7 @@ if (isset($_GET['winner']) && isset($_GET['loser'])) {
     }
 }
 
-$statement = $pdo->query('SELECT * FROM `player` ORDER BY `player`.`rating1` DeSC');
+$statement = $pdo->query('SELECT * FROM `player` ORDER BY `player`.`rating1` DeSC, `player`.`player_id` ASC');
 $statement->setFetchMode(PDO::FETCH_CLASS, 'Player');
 $players = $statement->fetchAll();
 
