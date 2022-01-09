@@ -1,0 +1,8 @@
+split(a,b,elo) = (
+    //Guarantees:
+        combined elo changes accordingly
+        everyone gains(looses) at least one point
+    
+    join_alt = join(a,b)
+
+)
