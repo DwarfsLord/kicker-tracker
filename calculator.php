@@ -8,13 +8,25 @@ function join_elo($a, $b)
     );
 }
 
+function calculate_elo($a, $b, $a_won, &$a_elo_gained)
+{
+    $MAX_ELO = 50;
+    $CONST_A = 43; //43.4294
+
+    $b_win_percent = (1 / (exp(($a - $b) / $CONST_A) + 1));
+
+    $a_elo_gained = $a_won ?
+        ceil($MAX_ELO * ($b_win_percent)) :
+        -1 * ceil($MAX_ELO * (1 - $b_win_percent));
+}
+
 function split_elo($a, $b, $elo_change, &$res_a, &$res_b)
 {
     $BASE = 2;
     $DIVISOR = 70;
+
     $responsibility_a = 1 / (1 + $BASE ** (($a - $b) / $DIVISOR));
     $responsibility_a = ($elo_change < 0) ? 1 - $responsibility_a : $responsibility_a;
-    // echo 1-$responsibility_a."<br>";
 
     $res_a = round($responsibility_a * $elo_change * 2);
     $res_b = round((1 - $responsibility_a) * $elo_change * 2);
@@ -23,11 +35,9 @@ function split_elo($a, $b, $elo_change, &$res_a, &$res_b)
     if ($res_a  == 0) {
         $res_a = $elo_change <=> 0;
         $res_b = $res_b + (0 <=> $elo_change);
-        // echo "call 1 <br>";
     } else if ($res_b == 0) {
         $res_b = $elo_change <=> 0;
         $res_a = $res_a + (0 <=> $elo_change);
-        // echo "call 2 <br>";
     }
 
     $res_a += $a;
@@ -39,8 +49,6 @@ function split_elo($a, $b, $elo_change, &$res_a, &$res_b)
         while ($old_combined_elo > join_elo($res_a, $res_b)) {
             $res_a += $res_a <=> $res_b;
             $res_b += $res_b <=> $res_a;
-            // echo "call 3 <br>";
-
         }
     }
 }
