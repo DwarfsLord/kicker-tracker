@@ -49,9 +49,9 @@ CREATE TABLE `game` (
 CREATE TABLE `player` (
   `player_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(23) NOT NULL,
-  `rating1` int(10) UNSIGNED NOT NULL DEFAULT 750,
+  `elo1` int(10) UNSIGNED NOT NULL DEFAULT 750,
   `free_elo1` int(11) NOT NULL DEFAULT 250,
-  `rating2` int(10) UNSIGNED NOT NULL DEFAULT 750,
+  `elo2` int(10) UNSIGNED NOT NULL DEFAULT 750,
   `free_elo2` int(11) NOT NULL DEFAULT 250
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -59,7 +59,7 @@ CREATE TABLE `player` (
 -- Dumping data for table `player`
 --
 
-INSERT INTO `player` (`player_id`, `name`, `rating1`, `free_elo1`, `rating2`, `free_elo2`) VALUES
+INSERT INTO `player` (`player_id`, `name`, `elo1`, `free_elo1`, `elo2`, `free_elo2`) VALUES
 (1, 'Chaim Lukas', 1000, 0, 1000, 0),
 (2, 'The Right Hand of Steve', 1000, 0, 1000, 0),
 (3, 'Felix K.', 1000, 0, 1000, 0),
