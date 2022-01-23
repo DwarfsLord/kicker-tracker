@@ -14,7 +14,9 @@ if (isset($_GET['winner']) && isset($_GET['loser'])) {
     $winner = get_player_by_name($_GET['winner'], $pdo);
     $loser = get_player_by_name($_GET['loser'], $pdo);
 
-    if ($winner != false && $loser != false) {
+    if($winner->player_id == $loser->player_id){
+        $game_added = false;
+    }elseif ($winner != false && $loser != false) {
         $state = add_game1($winner, $loser, $pdo);
 
         calculate_elo($winner->elo1, $loser->elo1, true, $elo_gained);
@@ -91,8 +93,13 @@ $players = get_players($pdo);
         history.replaceState(stateObj, "reset_GET", "index.php");
 
         <?php
-        if (isset($player_added) && $player_added) {
-            echo "alert('Player added!');";
+        if (isset($player_added)) {
+            if ($player_added) {
+                echo "alert('Player added!');";
+            } else {
+                echo "alert('Error while creating Player!')"; 
+            }
+            
         }
         if (isset($game_added)) {
             if ($game_added) {
@@ -100,8 +107,6 @@ $players = get_players($pdo);
             } else {
                 echo "alert('There was a player added in 2 fields!')"; 
             }
-            
-            
         }
         ?>
     </script>
