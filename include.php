@@ -21,8 +21,12 @@ $pdo = new PDO('mysql:host=localhost;dbname=elo', 'root', '');
 
 function add_player(string $name, PDO $pdo): bool
 {
-    $statement = $pdo->prepare("INSERT INTO `player` (`name`) VALUES (:new_name)");
-    return $statement->execute([':new_name' => $name]);
+    try {
+        $statement = $pdo->prepare("INSERT INTO `player` (`name`) VALUES (:new_name)");
+        return $statement->execute([':new_name' => $name]);
+    } catch (PDOException $th) {
+        return false;
+    }
 }
 
 function add_game1(Player $winner, Player $loser, PDO $pdo): bool
