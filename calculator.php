@@ -22,7 +22,7 @@ function calculate_elo(int|float $a, int|float $b, bool $a_won, int|NULL &$a_elo
         -1 * ceil($MAX_ELO * (1 - $b_win_percent));
 }
 
-function split_elo(int $a, int $b, int $elo_change, int|NULL &$res_a, int|NULL &$res_b)
+function split_elo(int &$a, int &$b, int $elo_change): void
 {
     $BASE = 2;
     $DIVISOR = 70;
@@ -53,6 +53,9 @@ function split_elo(int $a, int $b, int $elo_change, int|NULL &$res_a, int|NULL &
             $res_b += $res_b <=> $res_a;
         }
     }
+
+    $a = $res_a;
+    $b = $res_b;
 }
 
 function add_free_elo(bool $game_won, int &$elo_same_type, int &$free_elo_same_type, int &$elo_other_type, int &$free_elo_other_type): bool

@@ -25,7 +25,7 @@ function add_player(string $name, PDO $pdo): bool
     return $statement->execute([':new_name' => $name]);
 }
 
-function add_game(Player $winner, Player $loser, PDO $pdo): bool
+function add_game1(Player $winner, Player $loser, PDO $pdo): bool
 {
     $statement = $pdo->prepare(
         "INSERT INTO `game` (`winner1_id`, `winner1_old_elo`, `loser1_id`, `loser1_old_elo`) VALUES (:winner_id, :winner_old_elo, :loser_id, :loser_old_elo)"
@@ -36,6 +36,26 @@ function add_game(Player $winner, Player $loser, PDO $pdo): bool
             ':winner_old_elo' => $winner->elo1,
             ':loser_id' => $loser->player_id,
             ':loser_old_elo' => $loser->elo1
+        ]
+    );
+}
+
+function add_game2(Player $winner1, Player $winner2, Player $loser1, Player $loser2, PDO $pdo): bool
+{
+    $statement = $pdo->prepare(
+        "INSERT INTO `game` (`winner1_id`, `winner1_old_elo`, `winner2_id`, `winner2_old_elo`, `loser1_id`, `loser1_old_elo`, `loser2_id`, `loser2_old_elo`)
+        VALUES (:winner1_id, :winner1_old_elo, :winner2_id, :winner2_old_elo, :loser1_id, :loser1_old_elo, :loser2_id, :loser2_old_elo)"
+    );
+    return $statement->execute(
+        [
+            ':winner1_id' => $winner1->player_id,
+            ':winner1_old_elo' => $winner1->elo1,
+            ':winner2_id' => $winner2->player_id,
+            ':winner2_old_elo' => $winner2->elo1,
+            ':loser1_id' => $loser1->player_id,
+            ':loser1_old_elo' => $loser1->elo1,
+            ':loser2_id' => $loser2->player_id,
+            ':loser2_old_elo' => $loser2->elo1
         ]
     );
 }
@@ -80,4 +100,18 @@ function set_player(Player $player, PDO $pdo): bool
             ':free_elo2' => $player->free_elo2
         ]
     );
+}
+
+function regex_print_players(array $players)
+{
+    $first = true;
+    foreach ($players as $player) {
+        $name = str_replace("\-", "-", preg_quote($player->name));
+        if ($first) {
+            echo $name;
+            $first = false;
+        } else {
+            echo "|" . $name;
+        }
+    }
 }

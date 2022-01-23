@@ -124,7 +124,8 @@ $player = get_player_by_id($_GET['player_id'], $pdo);
         <div class='box graph'>
             <?php
             if ($no_data) {
-                echo "There is no data on this player yet!";
+                // echo "There is no data on this player yet!";
+                echo "1v1: $player->elo1 (+$player->free_elo1)<br>2v2: $player->elo2 (+$player->free_elo2)";
             } else {
                 echo "<div id='curve_chart' style='width: 310px; height: 310px'></div>";
             }

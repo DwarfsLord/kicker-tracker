@@ -2,7 +2,6 @@
 require 'include.php';
 
 $players = get_players($pdo);
-
 ?>
 
 <html>
@@ -21,7 +20,7 @@ $players = get_players($pdo);
             </div>
             <div class='config'>
                 <div class='new_game'>
-                    Entering 1v1 game...
+                    Entering 2v2 game...
                 </div>
             </div>
         </div>
@@ -30,13 +29,19 @@ $players = get_players($pdo);
                 <label for="field_winner">Winner:</label>
             </div>
             <div class='add_game_list'>
-                <input autofocus type="text" required="required" value="" id="field_winner" name="winner" class="field" list="players" pattern="^(<?php regex_print_players($players); ?>)$">
+                <input autofocus type="text" required="required" value="" id="field_winner" name="winner1" class="field" list="players" pattern="^(<?php regex_print_players($players); ?>)$">
+            </div>
+            <div class='add_game_list'>
+                <input type="text" required="required" value="" id="field_winner" name="winner2" class="field" list="players" pattern="^(<?php regex_print_players($players); ?>)$">
             </div>
             <div class='add_game_label'>
                 <label for="field_loser">Loser:</label>
             </div>
             <div class='add_game_list'>
-                <input type="text" required="required" value="" id="field_winner" name="loser" class="field" list="players" pattern="^(<?php regex_print_players($players); ?>)$">
+                <input type="text" required="required" value="" id="field_winner" name="loser1" class="field" list="players" pattern="^(<?php regex_print_players($players); ?>)$">
+            </div>
+            <div class='add_game_list'>
+                <input type="text" required="required" value="" id="field_winner" name="loser2" class="field" list="players" pattern="^(<?php regex_print_players($players); ?>)$">
                 <datalist id="players">
                     <?php
                     foreach ($players as $player) {
