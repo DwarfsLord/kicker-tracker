@@ -41,7 +41,11 @@ if (isset($_GET['winner1']) && isset($_GET['winner2']) && isset($_GET['loser1'])
     $loser1 = get_player_by_name($_GET['loser1'], $pdo);
     $loser2 = get_player_by_name($_GET['loser2'], $pdo);
 
-    if ($winner1 != false && $winner2 != false && $loser1 != false && $loser2 != false) {
+    if($winner1->player_id == $winner2->player_id || $winner1->player_id == $loser1->player_id || $winner1->player_id == $loser2->player_id ||
+        $winner2->player_id == $loser1->player_id || $winner2->player_id == $loser2->player_id ||
+        $loser1->player_id == $loser2->player_id){
+        $game_added = false;
+    }elseif ($winner1 != false && $winner2 != false && $loser1 != false && $loser2 != false) {
         $state = add_game2($winner1, $winner2, $loser1, $loser2, $pdo);
 
         $winner_elo = join_elo($winner1->elo2, $winner2->elo2);
@@ -91,7 +95,13 @@ $players = get_players($pdo);
             echo "alert('Player added!');";
         }
         if (isset($game_added)) {
-            echo "alert('Game added!');";
+            if ($game_added) {
+                echo "alert('Game added!');";
+            } else {
+                echo "alert('There was a player added in 2 fields!')"; 
+            }
+            
+            
         }
         ?>
     </script>
