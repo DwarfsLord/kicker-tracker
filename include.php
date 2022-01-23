@@ -49,13 +49,13 @@ function add_game2(Player $winner1, Player $winner2, Player $loser1, Player $los
     return $statement->execute(
         [
             ':winner1_id' => $winner1->player_id,
-            ':winner1_old_elo' => $winner1->elo1,
+            ':winner1_old_elo' => $winner1->elo2,
             ':winner2_id' => $winner2->player_id,
-            ':winner2_old_elo' => $winner2->elo1,
+            ':winner2_old_elo' => $winner2->elo2,
             ':loser1_id' => $loser1->player_id,
-            ':loser1_old_elo' => $loser1->elo1,
+            ':loser1_old_elo' => $loser1->elo2,
             ':loser2_id' => $loser2->player_id,
-            ':loser2_old_elo' => $loser2->elo1
+            ':loser2_old_elo' => $loser2->elo2
         ]
     );
 }
