@@ -21,7 +21,7 @@ function join_elo_test()
 function calculate_elo_test()
 {
     $a = 1000;
-    $b = 1000;
+    $b = 1001;
     // $a_elo_gained = 0;
     for ($i = 0; $i < 10; $i++) {
         calculate_elo($a, $b, ($i + 1) % 2, $a_elo_gained);
