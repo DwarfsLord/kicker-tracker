@@ -27,24 +27,30 @@ function add_player(string $name, PDO $pdo): bool
 
 function add_game(Player $winner, Player $loser, PDO $pdo): bool
 {
-
     $statement = $pdo->prepare(
-        "INSERT INTO `game` (`winner_id`, `winner_old_elo`, `loser_id`, `loser_old_elo`) VALUES (:winner_id, :winner_old_elo, :loser_id, :loser_old_elo)"
+        "INSERT INTO `game` (`winner1_id`, `winner1_old_elo`, `loser1_id`, `loser1_old_elo`) VALUES (:winner_id, :winner_old_elo, :loser_id, :loser_old_elo)"
     );
     return $statement->execute(
         [
             ':winner_id' => $winner->player_id,
             ':winner_old_elo' => $winner->elo1,
             ':loser_id' => $loser->player_id,
-            ':loser_old_elo' => $loser->player_id
+            ':loser_old_elo' => $loser->elo1
         ]
     );
 }
 
-function get_player(string $name, PDO $pdo): Player|false
+function get_player_by_name(string $name, PDO $pdo): Player|false
 {
     $statement = $pdo->prepare("SELECT *  FROM `player` WHERE `name` LIKE :name");
     $statement->execute([':name' => $name]);
+    return $statement->fetchObject('Player');
+}
+
+function get_player_by_id(int $player_id, PDO $pdo): Player|false
+{
+    $statement = $pdo->prepare("SELECT *  FROM `player` WHERE `player_id` LIKE :player_id");
+    $statement->execute([':player_id' => $player_id]);
     return $statement->fetchObject('Player');
 }
 

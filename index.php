@@ -11,8 +11,8 @@ if (isset($_GET['name'])) {
 }
 
 if (isset($_GET['winner']) && isset($_GET['loser'])) {
-    $winner = get_player($_GET['winner'], $pdo);
-    $loser = get_player($_GET['loser'], $pdo);
+    $winner = get_player_by_name($_GET['winner'], $pdo);
+    $loser = get_player_by_name($_GET['loser'], $pdo);
 
     if ($winner != false && $loser != false) {
         $state = add_game($winner, $loser, $pdo);
