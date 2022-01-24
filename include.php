@@ -12,10 +12,10 @@ class Player
     public int $free_elo2;
 }
 
-// require 'identity.php';
-// $pdo = new PDO("mysql:host=$MYSQL_SERVER;dbname=$MYSQL_DB_NAME", $MYSQL_USER, $MYSQL_PASSWORD);
+require 'identity.php';
+$pdo = new PDO("mysql:host=$MYSQL_SERVER;dbname=$MYSQL_DB_NAME", $MYSQL_USER, $MYSQL_PASSWORD);
 
-$pdo = new PDO('mysql:host=localhost;dbname=elo', 'root', '');
+// $pdo = new PDO('mysql:host=localhost;dbname=elo', 'root', '');
 
 //$pdo->query("SET time_zone = 'Europe/Berlin'");
 
