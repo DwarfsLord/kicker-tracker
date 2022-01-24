@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 06, 2022 at 05:35 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+-- Host: dbuipym1.mariadb.hosting.zone
+-- Generation Time: Jan 23, 2022 at 12:43 PM
+-- Server version: 10.3.20-MariaDB-deb10-keen
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `elo`
+-- Database: `dbuipym1`
 --
 
 -- --------------------------------------------------------
@@ -56,26 +56,6 @@ CREATE TABLE `player` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `player`
---
-
-INSERT INTO `player` (`player_id`, `name`, `elo1`, `free_elo1`, `elo2`, `free_elo2`) VALUES
-(1, 'Chaim Lukas', 1000, 0, 1000, 0),
-(2, 'The Right Hand of Steve', 1000, 0, 1000, 0),
-(3, 'Felix K.', 1000, 0, 1000, 0),
-(4, 'The Great Dane', 1000, 0, 1000, 0),
-(5, 'Sammy', 1000, 0, 1000, 0),
-(6, 'Johannes', 1000, 0, 1000, 0),
-(7, 'Zachary Lenhart', 1000, 0, 1000, 0),
-(8, 'Sam Girl', 1000, 0, 1000, 0),
-(9, 'David Janus', 1000, 0, 1000, 0),
-(10, 'Erik', 1000, 0, 1000, 0),
-(11, 'A-A-Ron', 1000, 0, 1000, 0),
-(12, 'Caleb Karch', 1000, 0, 1000, 0),
-(13, 'SwagBry', 1000, 0, 1000, 0),
-(14, 'Christian Crebar', 1000, 0, 1000, 0);
-
---
 -- Indexes for dumped tables
 --
 
@@ -97,10 +77,16 @@ ALTER TABLE `player`
 --
 
 --
+-- AUTO_INCREMENT for table `game`
+--
+ALTER TABLE `game`
+  MODIFY `game_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `player_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `player_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
