@@ -83,7 +83,7 @@ $players = get_players($pdo);
 <html>
 
 <head>
-    <title>Bode Kicker Tracker</title>
+    <title>Kicker Tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <script>
